@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Animals\Cow;
 use Illuminate\Console\Command;
 
 class FarmLife extends Command
@@ -26,5 +27,9 @@ class FarmLife extends Command
     public function handle()
     {
         $this->info('Farm simulator is here.');
+
+        $cow = new Cow();
+        $this->info($cow->getProductionPerDay());
+
     }
 }
