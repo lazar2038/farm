@@ -99,7 +99,6 @@ class FarmLife extends Command
         $farm->setProductionByDays(FarmService::ITERATION_DAYS);
 
 
-        $this->info('За прошедший период собрано:');
         foreach ($farm->getAllProduction() as $class => $quantity) {
             $this->info($class::getProductionTitle() . ': '. $quantity);
         }
