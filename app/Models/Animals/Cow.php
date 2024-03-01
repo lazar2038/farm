@@ -6,8 +6,10 @@ use Illuminate\Support\Str;
 class Cow extends Animal
 {
 
+    public static $quantity = 10;
     protected int $productionPerDay_min = 8;
     protected int $productionPerDay_max = 12;
+    protected static $productionTitle = 'Молоко, л.';
 
 
 

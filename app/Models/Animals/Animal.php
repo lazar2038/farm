@@ -7,9 +7,9 @@ abstract class Animal
 {
     private $uuid;
 
-
     protected int $productionPerDay_min;
     protected int $productionPerDay_max;
+
 
     public function __construct() {
         $this->uuid = Str::uuid();
@@ -23,6 +23,11 @@ abstract class Animal
     public function getProductionPerDay() {
         return rand($this->productionPerDay_min, $this->productionPerDay_max);
     }
+
+    public static function getProductionTitle() {
+        return static::$productionTitle;
+    }
+
 
 
 }
