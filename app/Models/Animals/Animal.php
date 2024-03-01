@@ -5,6 +5,8 @@ use Illuminate\Support\Str;
 
 abstract class Animal
 {
+
+
     private $uuid;
 
     protected int $productionPerDay_min;

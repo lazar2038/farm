@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Models\Animals\Cow;
+use App\Models\Animals\Hen;
+use App\Models\Farm;
 use App\Services\FarmService;
 use Illuminate\Console\Command;
 
@@ -27,17 +29,16 @@ class FarmLife extends Command
      */
     public function handle()
     {
+
         $this->info('Farm simulator is here.');
 
+        $farm = new Farm();
 
-        foreach (FarmService::ANIMAL_CLASSES as $shortName => $className) {
-
-            $this->info($className);
-
+        foreach ($farm->getAnimals() as $animal) {
+            $this->info($animal::class::getProductionTitle());
         }
 
-        $cow = new Cow();
-        $this->info(Cow::getProductionTitle());
+
 
     }
 }
