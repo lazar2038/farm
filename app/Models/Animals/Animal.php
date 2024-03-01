@@ -26,8 +26,15 @@ abstract class Animal
         return rand($this->productionPerDay_min, $this->productionPerDay_max);
     }
 
+    public static function getAnimalTitle() {
+        return static::$animalTitle;
+    }
     public static function getProductionTitle() {
         return static::$productionTitle;
+    }
+
+    public static function getProductionType() {
+        return static::$productionType;
     }
 
 

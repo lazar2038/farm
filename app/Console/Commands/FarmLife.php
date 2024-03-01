@@ -30,15 +30,48 @@ class FarmLife extends Command
     public function handle()
     {
 
-        $this->info('Farm simulator is here.');
-
         $farm = new Farm();
+        $this->info('На ферме есть следующие животные:');
 
-        foreach ($farm->getAnimals() as $animal) {
-            $this->info($animal::class::getProductionTitle());
+        foreach($farm->getAnimalsByGroups() as $class => $quantity) {
+            $this->info($class::getAnimalTitle().': '. $quantity.' голов');
         }
 
 
+
+        $farm->setProductionByDays(FarmService::ITERATION_DAYS);
+
+        $this->info('За прошедший период собрано:');
+        foreach ($farm->getAllProduction() as $class => $quantity) {
+            $this->info($class::getProductionTitle() . ': '. $quantity);
+        }
+
+        $this->info('Произведена закупка новых животных.');
+
+
+        $farm->addAnimal(new Hen());
+        $farm->addAnimal(new Hen());
+        $farm->addAnimal(new Hen());
+        $farm->addAnimal(new Hen());
+        $farm->addAnimal(new Hen());
+        $farm->addAnimal(new Cow());
+
+        $this->info('Теперь на ферме есть следующие животные:');
+
+        foreach($farm->getAnimalsByGroups() as $class => $quantity) {
+            $this->info($class::getAnimalTitle().': '. $quantity.' голов');
+        }
+
+        $this->info('Прошла ещё неделя.');
+        $this->info('Всего собрано продукции,включая первую неделю:');
+
+        $farm->setProductionByDays(FarmService::ITERATION_DAYS);
+
+
+        $this->info('За прошедший период собрано:');
+        foreach ($farm->getAllProduction() as $class => $quantity) {
+            $this->info($class::getProductionTitle() . ': '. $quantity);
+        }
 
     }
 }
