@@ -7,9 +7,11 @@ use App\Models\Animals\Hen;
 use App\Models\Farm;
 use App\Services\FarmService;
 use Illuminate\Console\Command;
+use function Laravel\Prompts\pause;
 
 class FarmLife extends Command
 {
+
     /**
      * The name and signature of the console command.
      *
@@ -38,6 +40,20 @@ class FarmLife extends Command
         }
 
 
+        $bar = $this->output->createProgressBar(FarmService::ITERATION_DAYS);
+
+
+
+        $this->info('Начинается новая неделя, ждём '.FarmService::ITERATION_DAYS.' дней');
+        $bar->start();
+        for ($day = 1; $day<= FarmService::ITERATION_DAYS; $day++) {
+            usleep(500000);
+            $bar->advance();
+        }
+        $bar->finish();
+        $this->newLine(2);
+
+
 
         $farm->setProductionByDays(FarmService::ITERATION_DAYS);
 
@@ -45,6 +61,10 @@ class FarmLife extends Command
         foreach ($farm->getAllProduction() as $class => $quantity) {
             $this->info($class::getProductionTitle() . ': '. $quantity);
         }
+
+
+
+        pause('Для запуска следующей недели нажмите Enter');
 
         $this->info('Произведена закупка новых животных.');
 
@@ -61,6 +81,17 @@ class FarmLife extends Command
         foreach($farm->getAnimalsByGroups() as $class => $quantity) {
             $this->info($class::getAnimalTitle().': '. $quantity.' голов');
         }
+
+
+        $this->info('Начинается новая неделя, ждём '.FarmService::ITERATION_DAYS.' дней');
+        $bar->start();
+        for ($day = 1; $day<= FarmService::ITERATION_DAYS; $day++) {
+            usleep(500000);
+            $bar->advance();
+        }
+        $bar->finish();
+        $this->newLine(2);
+
 
         $this->info('Прошла ещё неделя.');
         $this->info('Всего собрано продукции,включая первую неделю:');
